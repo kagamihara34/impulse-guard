@@ -4,4 +4,4 @@ export type WantItem = {
     price?: number;
     reason?: string;
     createdAt: Date;
-};
+}

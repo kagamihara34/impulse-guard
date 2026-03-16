@@ -1,5 +1,5 @@
-import WantListScreen  from "./screens/WantListScreen";
+import WantListScreen from './screens/WantListScreen';
 
 export default function App() {
-  return <WantListScreen />;
+  return <WantListScreen />
 }
