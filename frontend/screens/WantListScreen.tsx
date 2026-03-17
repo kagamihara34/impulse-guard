@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
 import { WantItem } from '../types';
+import AddModal from '../components/AddModal';
 
 export default function WantListScreen() {
     const [items, setItems] = useState<WantItem[]>([]);
-    const [name, setName] = useState('');
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const addItem = () => {
+    const addItem = (name: string) => {
         if (name.trim() === '') return;
         const newItem: WantItem = {
             id: Date.now().toString(),
@@ -14,7 +15,6 @@ export default function WantListScreen() {
             createdAt: new Date(),
         };
         setItems([...items, newItem]);
-        setName('');
     };
 
     const deleteItem = (id: string) => {
@@ -24,13 +24,12 @@ export default function WantListScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>ウォントリスト</Text>
-            <TextInput
-                style={styles.input}
-                value={name}
-                onChangeText={setName}
-                placeholder="ほしいものを入力"
+            <Button title="追加" onPress={() => setIsModalVisible(true)} />
+            <AddModal
+                visible={isModalVisible}
+                onClose={() => setIsModalVisible(false)}
+                onAdd={addItem}
             />
-            <Button title="追加" onPress={addItem} />
             <FlatList
                 data={items}
                 keyExtractor={(item) => item.id}
