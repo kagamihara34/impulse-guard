@@ -13,11 +13,12 @@ export function useWantList() {
         return () => clearInterval(interval);
     }, []);
 
-    const addItem = (name: string) => {
+    const addItem = (name: string, reason: string) => {
         if (name.trim() === '') return;
         const newItem: WantItem = {
             id: Date.now().toString(),
             name,
+            reason,
             createdAt: new Date(),
         };
         setItems([...items, newItem]);
@@ -32,7 +33,7 @@ export function useWantList() {
         const hours72 = 72 * 60 * 60 * 1000;
         const deadline = new Date(createdAt.getTime() + hours72);
         const remaining = deadline.getTime() - now.getTime();       
-        const hours = 0;//Math.floor(remaining / (60 * 60 * 1000));
+        const hours = Math.floor(remaining / (60 * 60 * 1000));
         
         return Math.max(hours, 0);
     };
