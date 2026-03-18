@@ -1,25 +1,11 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
-import { WantItem } from '../types';
+import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
+import { useWantList } from '../hooks/useWantList';
 import AddModal from '../components/AddModal';
 
 export default function WantListScreen() {
-    const [items, setItems] = useState<WantItem[]>([]);
+    const { items, addItem, deleteItem, getRemainingTime } = useWantList();
     const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const addItem = (name: string) => {
-        if (name.trim() === '') return;
-        const newItem: WantItem = {
-            id: Date.now().toString(),
-            name,
-            createdAt: new Date(),
-        };
-        setItems([...items, newItem]);
-    };
-
-    const deleteItem = (id: string) => {
-        setItems(items.filter(item => item.id !== id));
-    };
 
     return (
         <View style={styles.container}>
@@ -35,7 +21,7 @@ export default function WantListScreen() {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <Text style={styles.item}>
-                        {item.name}
+                        {item.name} - {getRemainingTime(item.createdAt) === 0 ? '購入OK!' : `残り${getRemainingTime(item.createdAt)}時間`}
                         <Button title="削除" onPress={() => deleteItem(item.id)} />
                     </Text>
                 )}
