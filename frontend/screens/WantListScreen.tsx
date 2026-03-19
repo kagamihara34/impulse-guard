@@ -1,11 +1,17 @@
 import { useState } from 'react';
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useWantList } from '../hooks/useWantList';
 import AddModal from '../components/AddModal';
+import { RootStackParamList } from '../App';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'WantList'>;
 
 export default function WantListScreen() {
     const { items, addItem, deleteItem, getRemainingTime } = useWantList();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const navigation = useNavigation<NavigationProp>();
 
     return (
         <View style={styles.container}>
@@ -20,10 +26,12 @@ export default function WantListScreen() {
                 data={items}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <Text style={styles.item}>
-                        {item.name} - {getRemainingTime(item.createdAt) === 0 ? '購入OK!' : `残り${getRemainingTime(item.createdAt)}時間`}
-                        <Button title="削除" onPress={() => deleteItem(item.id)} />
-                    </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate(`Detail`, { id: item.id })}>
+                        <Text style={styles.item}>
+                            {item.name} - {getRemainingTime(item.createdAt) === 0 ? '購入OK!' : `残り${getRemainingTime(item.createdAt)}時間`}
+                            <Button title="削除" onPress={() => deleteItem(item.id)} />
+                        </Text>
+                    </TouchableOpacity>
                 )}
             />
         </View>

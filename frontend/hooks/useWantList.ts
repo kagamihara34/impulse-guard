@@ -13,12 +13,15 @@ export function useWantList() {
         return () => clearInterval(interval);
     }, []);
 
-    const addItem = (name: string, reason: string) => {
+    const addItem = (url: string, name: string, price: number, reason: string, imageUrl: string) => {
         if (name.trim() === '') return;
         const newItem: WantItem = {
             id: Date.now().toString(),
+            url,
             name,
+            price,
             reason,
+            imageUrl,
             createdAt: new Date(),
         };
         setItems([...items, newItem]);
