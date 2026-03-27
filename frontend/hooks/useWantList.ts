@@ -31,7 +31,6 @@ export function useWantList() {
         setItems(items.filter(item => item.id !== id));
     };
 
-
     const getRemainingTime = (createdAt: Date) => {
         const hours72 = 72 * 60 * 60 * 1000;
         const deadline = new Date(createdAt.getTime() + hours72);
@@ -41,5 +40,5 @@ export function useWantList() {
         return Math.max(hours, 0);
     };
     
-    return { items, addItem, deleteItem, getRemainingTime}
+    return { items, addItem, deleteItem, getRemainingTime }
 }
