@@ -1,7 +1,6 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { Text , View } from "react-native";
 import { RootStackParamList } from "../App";
-import { useWantList } from "../hooks/useWantList";
 import { useContext } from "react";
 import { WantListContext } from "../contexts/WantListContext";
 
@@ -17,13 +16,11 @@ export default function DetailScreen(){
     return (
         <View>
             <Text>詳細画面</Text>
-            <Text>
-                {item?.imageUrl} <br />
-                {item?.name} <br />
-                {item?.price} <br />
-                {item?.reason} <br />
-                {item?.url} <br />
-            </Text>
+            <Text>{item?.imageUrl}</Text>
+            <Text>{item?.name}</Text>
+            <Text>{item?.price}</Text>
+            <Text>{item?.reason}</Text>
+            <Text>{item?.url}</Text>
         </View>
     )
 }
