@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { View, Text, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useWantList } from '../hooks/useWantList';
 import AddModal from '../components/AddModal';
